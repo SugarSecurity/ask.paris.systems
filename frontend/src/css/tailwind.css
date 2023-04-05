@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: 'Satoshi-Regular';
+}
+
+.font-light {
+  font-family: 'Satoshi-Light';
+}
+
+.font-medium {
+  font-family: 'Satoshi-Medium';
+}
+
+.font-bold {
+  font-family: 'Satoshi-Bold';
+}
+
+.font-black {
+  font-family: 'Satoshi-Black';
+}

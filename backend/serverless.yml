@@ -1,0 +1,67 @@
+
+service: paris
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  region: us-east-1
+  runtime: python3.8
+  lambdaHashingVersion: 20201221
+  timeout: 100
+  ecr:
+    images:
+      paris_container:
+        path: ./
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "lambda:InvokeFunction"
+        - "s3:PutObject"
+        - "ssm:GetParameter"
+      Resource:
+        - "arn:aws:lambda:us-east-1:756114516798:function:paris-dev-run_paris"
+        - "arn:aws:s3:::assets.sugarsecurity.com/*"
+        - "arn:aws:ssm:us-east-1:756114516798:parameter/paris_key"
+
+  #iamRoleStatements:                      # make sure to use the bare minimums - note and reduce
+  #  - Effect: "Allow"                     # give lambda permissions for...
+  #    Action:                             # 
+  #      - "ssm:GetParameter"              # for SSM getting keys and such
+  #    Resource:
+  #      - "arn:aws:ssm:us-east-1:311306608161:parameter/askparis*"
+
+#plugins:
+#  - serverless-domain-manager
+#custom:                                             # settings for the plugins: 
+#  pythonRequirements:
+#    usePoetry: true
+  #customDomain:                                     # | custom domain:
+  #  domainName: api.paris.systems      # -->
+  #  stage: ${opt:stage,'dev'}                       # --> adds /prod/ or /dev/
+  #  basePath: ${opt:stage,'dev'}                    # --> everything 
+  #  region: us-east-1                               # --> in us-east-1
+  #  certificateName: "*.paris.systems"          # --> TLS certificate in ACM
+  #  endpointType: "regional"                        # --> regional endpoint
+  #  securityPolicy: tls_1_2                         # --> TLS 1.2
+  #  createRoute53Record: true                       # --> creates / replaces Route53 record
+  #  apiType: rest                                   # --> REST API
+  #  autoDomain: true
+
+functions:
+  # take a CVE number, lookup exploit instructions, generate code
+  run_paris:
+    image:
+      name: paris_container
+      command:
+        - app.run_paris
+  handle_http_request:
+    image:
+      name: paris_container
+      command:
+        - app.handle_http
+    events:
+      - http:
+          path: generate
+          method: any
+          cors: true
+    reservedConcurrency: 1

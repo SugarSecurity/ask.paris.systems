@@ -1,0 +1,42 @@
+/* 
+  sugar-styles.css
+
+  - The following are styles that are reused across the site.
+  - Editing a style here adjusts all instances of that style.
+  - The prefix "sugar-" is used on al styles
+*/
+
+.submit-button {
+  @apply bg-slate-900 hover:bg-slate-600 transition duration-150 ease-in-out text-white rounded-xl px-4 py-2 text-sm md:text-base;
+}
+
+.sugar-button-lg {
+  @apply bg-pink-500 hover:bg-pink-600 transition duration-150 ease-in-out text-white rounded-xl px-5 py-2 text-sm md:text-lg;
+}
+
+.cve-input {
+  @apply bg-white dark:bg-slate-800 w-full border rounded-lg p-3 border-slate-200 dark:border-slate-600 focus:outline-none hover:border-pink-500 hover:bg-pink-100/20 focus:border-pink-500 focus:bg-pink-200/20 dark:hover:border-pink-500 dark:hover:bg-pink-500/20 dark:focus:border-pink-500 dark:focus:bg-pink-800/20 transition-all duration-150 ease-in-out shadow-inner;
+}
+
+.bg-s-white {
+  background-color: white;
+}
+
+.tippy-box[data-theme~='ss-tooltip'] {
+  border-radius: 0.5rem;
+  padding-left: 0.12rem;
+  padding-right: 0.12rem;
+  text-align: center;
+  font-family: 'Satoshi-Bold';
+}
+
+.sugar-toast {
+  background-color: #0f172a !important;
+  min-height: 52px !important;
+  padding: 16px 22px !important;
+}
+
+.Vue-Toastification__fade-leave-active,
+.Vue-Toastification__fade-enter-active {
+  animation-duration: 375ms !important;
+}
